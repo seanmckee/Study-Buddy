@@ -107,7 +107,9 @@ export default async function Index() {
           >
             Login
           </Link> */}
-          {isSupabaseConnected && <AuthButton />}
+          <div className="text-sm font-medium hover:underline underline-offset-4 ">
+            {isSupabaseConnected && <AuthButton />}
+          </div>
         </nav>
       </header>
       <main className="flex-1">
@@ -286,14 +288,14 @@ export default async function Index() {
               <Card>
                 <CardHeader>
                   <CardTitle>Free</CardTitle>
-                  <CardDescription>
+                  {/* <CardDescription>
                     <div className="flex items-baseline space-x-2">
                       <span className="text-4xl font-bold">$0</span>
                       <span className="text-sm text-gray-500 dark:text-gray-400">
                         /month
                       </span>
                     </div>
-                  </CardDescription>
+                  </CardDescription> */}
                 </CardHeader>
                 <CardContent className="space-y-4">
                   <ul className="space-y-2 text-sm text-gray-500 dark:text-gray-400">
