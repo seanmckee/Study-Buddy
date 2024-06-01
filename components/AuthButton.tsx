@@ -28,7 +28,7 @@ export default async function AuthButton() {
     </div>
   ) : (
     <Link
-      href="/login"
+      href="/dashboard"
       className="text-sm font-medium hover:underline underline-offset-4 "
     >
       Login
