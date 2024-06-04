@@ -21,11 +21,16 @@ import {
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import { FileUploader } from "react-drag-drop-files";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import DragDrop from "@/components/DragDrop";
+import CreateSession from "./create-session";
+import { deleteSession, getSessions } from "@/lib/actions/user.actions";
+import SessionCard from "./session-card";
 
 export default async function Component() {
   const supabase = createClient();
+  // const [file, setFile] = useState(null);
+  const sessions = await getSessions();
 
   const {
     data: { user },
@@ -46,183 +51,14 @@ export default async function Component() {
           >
             Create New Quiz
           </Link>
-          <Dialog>
-            <DialogTrigger asChild>
-              <Button
-                className="bg-gray-900 text-gray-50 hover:bg-gray-900/90 focus-visible:ring-gray-950 dark:bg-gray-50 dark:text-gray-900 dark:hover:bg-gray-50/90 dark:focus-visible:ring-gray-300"
-                size="sm"
-                variant="outline"
-              >
-                New Review Session
-              </Button>
-            </DialogTrigger>
-            <DialogContent className="sm:max-w-[425px]">
-              <DialogHeader>
-                <DialogTitle>Create New Review Session</DialogTitle>
-                <DialogDescription>
-                  Enter your Review Session information here. Click create when
-                  you're done
-                </DialogDescription>
-              </DialogHeader>
-              <div className="grid gap-4 py-4">
-                <div className="grid grid-cols-4 items-center gap-4">
-                  <Label htmlFor="name" className="text-right">
-                    Name
-                  </Label>
-                  <Input
-                    id="name"
-                    placeholder="Enter Session Name"
-                    className="col-span-3"
-                  />
-                </div>
-
-                <div className="grid gap-4 py-4">
-                  <DragDrop />
-                </div>
-              </div>
-              <DialogFooter>
-                <Button type="submit">Create</Button>
-              </DialogFooter>
-            </DialogContent>
-          </Dialog>
+          <CreateSession />
         </div>
       </div>
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-        <Card>
-          <CardContent>
-            <h2 className="text-xl font-bold mb-2">Biology Quiz</h2>
-            <p className="text-gray-500 mb-4">
-              A comprehensive quiz covering the fundamentals of biology.
-            </p>
-            <div className="text-gray-400 text-sm">Created on May 15, 2023</div>
-          </CardContent>
-          <CardFooter>
-            <Button
-              className="bg-gray-900 text-gray-50 hover:bg-gray-900/90 focus-visible:ring-gray-950 dark:bg-gray-50 dark:text-gray-900 dark:hover:bg-gray-50/90 dark:focus-visible:ring-gray-300"
-              size="sm"
-              variant="outline"
-            >
-              View
-            </Button>
-            <Button
-              className="bg-gray-900 text-gray-50 hover:bg-gray-900/90 focus-visible:ring-gray-950 dark:bg-gray-50 dark:text-gray-900 dark:hover:bg-gray-50/90 dark:focus-visible:ring-gray-300"
-              size="sm"
-              variant="outline"
-            >
-              Edit
-            </Button>
-            <Button
-              className="bg-gray-900 text-gray-50 hover:bg-gray-900/90 focus-visible:ring-gray-950 dark:bg-gray-50 dark:text-gray-900 dark:hover:bg-gray-50/90 dark:focus-visible:ring-gray-300"
-              size="sm"
-              variant="outline"
-            >
-              Delete
-            </Button>
-          </CardFooter>
-        </Card>
-        <Card>
-          <CardContent>
-            <h2 className="text-xl font-bold mb-2">History of Art</h2>
-            <p className="text-gray-500 mb-4">
-              A quiz that explores the evolution of art throughout history.
-            </p>
-            <div className="text-gray-400 text-sm">
-              Created on April 28, 2023
-            </div>
-          </CardContent>
-          <CardFooter>
-            <Button
-              className="bg-gray-900 text-gray-50 hover:bg-gray-900/90 focus-visible:ring-gray-950 dark:bg-gray-50 dark:text-gray-900 dark:hover:bg-gray-50/90 dark:focus-visible:ring-gray-300"
-              size="sm"
-              variant="outline"
-            >
-              View
-            </Button>
-            <Button
-              className="bg-gray-900 text-gray-50 hover:bg-gray-900/90 focus-visible:ring-gray-950 dark:bg-gray-50 dark:text-gray-900 dark:hover:bg-gray-50/90 dark:focus-visible:ring-gray-300"
-              size="sm"
-              variant="outline"
-            >
-              Edit
-            </Button>
-            <Button
-              className="bg-gray-900 text-gray-50 hover:bg-gray-900/90 focus-visible:ring-gray-950 dark:bg-gray-50 dark:text-gray-900 dark:hover:bg-gray-50/90 dark:focus-visible:ring-gray-300"
-              size="sm"
-              variant="outline"
-            >
-              Delete
-            </Button>
-          </CardFooter>
-        </Card>
-        <Card>
-          <CardContent>
-            <h2 className="text-xl font-bold mb-2">Introduction to Python</h2>
-            <p className="text-gray-500 mb-4">
-              A beginner-friendly quiz to test your knowledge of Python
-              programming.
-            </p>
-            <div className="text-gray-400 text-sm">
-              Created on March 12, 2023
-            </div>
-          </CardContent>
-          <CardFooter>
-            <Button
-              className="bg-gray-900 text-gray-50 hover:bg-gray-900/90 focus-visible:ring-gray-950 dark:bg-gray-50 dark:text-gray-900 dark:hover:bg-gray-50/90 dark:focus-visible:ring-gray-300"
-              size="sm"
-              variant="outline"
-            >
-              View
-            </Button>
-            <Button
-              className="bg-gray-900 text-gray-50 hover:bg-gray-900/90 focus-visible:ring-gray-950 dark:bg-gray-50 dark:text-gray-900 dark:hover:bg-gray-50/90 dark:focus-visible:ring-gray-300"
-              size="sm"
-              variant="outline"
-            >
-              Edit
-            </Button>
-            <Button
-              className="bg-gray-900 text-gray-50 hover:bg-gray-900/90 focus-visible:ring-gray-950 dark:bg-gray-50 dark:text-gray-900 dark:hover:bg-gray-50/90 dark:focus-visible:ring-gray-300"
-              size="sm"
-              variant="outline"
-            >
-              Delete
-            </Button>
-          </CardFooter>
-        </Card>
-        <Card>
-          <CardContent>
-            <h2 className="text-xl font-bold mb-2">Geography Trivia</h2>
-            <p className="text-gray-500 mb-4">
-              A fun quiz to test your knowledge of world geography.
-            </p>
-            <div className="text-gray-400 text-sm">
-              Created on February 22, 2023
-            </div>
-          </CardContent>
-          <CardFooter>
-            <Button
-              className="bg-gray-900 text-gray-50 hover:bg-gray-900/90 focus-visible:ring-gray-950 dark:bg-gray-50 dark:text-gray-900 dark:hover:bg-gray-50/90 dark:focus-visible:ring-gray-300"
-              size="sm"
-              variant="outline"
-            >
-              View
-            </Button>
-            <Button
-              className="bg-gray-900 text-gray-50 hover:bg-gray-900/90 focus-visible:ring-gray-950 dark:bg-gray-50 dark:text-gray-900 dark:hover:bg-gray-50/90 dark:focus-visible:ring-gray-300"
-              size="sm"
-              variant="outline"
-            >
-              Edit
-            </Button>
-            <Button
-              className="bg-gray-900 text-gray-50 hover:bg-gray-900/90 focus-visible:ring-gray-950 dark:bg-gray-50 dark:text-gray-900 dark:hover:bg-gray-50/90 dark:focus-visible:ring-gray-300"
-              size="sm"
-              variant="outline"
-            >
-              Delete
-            </Button>
-          </CardFooter>
-        </Card>
+        {sessions &&
+          sessions.map((session, i) => (
+            <SessionCard key={i} session={session} />
+          ))}
       </div>
     </div>
   );
