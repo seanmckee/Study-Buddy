@@ -1,44 +1,9 @@
+"use client";
+
 import { Button } from "@/components/ui/button";
-import { generateQuiz, getSession } from "@/lib/actions/user.actions";
-import { writeQuiz } from "@/lib/ai/gemini";
-import React, { useState } from "react";
-import GenerateQuizButton from "./generate-button";
+import React from "react";
 
-const page = async ({ params: { id } }: any) => {
-  const session = await getSession(id);
-
-  // let quiz = await writeQuiz(session.document_text, 5);
-  // let quizJSON = JSON.parse(quiz);
-  // let quizJSON = null; // Initialize quizJSON to null
-  // try {
-  //   const quiz = await writeQuiz(session.document_text, 5);
-  //   quizJSON = JSON.parse(quiz);
-  // } catch (error) {
-  //   console.error("Error parsing quiz:", error);
-  // }
-
-  // Set quizExists based on successful parsing
-  // let quizExists = false;
-  // let quizJSON = { questions: ["Nothing"] };
-
-  // const generateQuiz = async () => {
-  //   "use server";
-  //   try {
-  //     const quiz = await writeQuiz(session.document_text, 5);
-  //     quizJSON = JSON.parse(quiz);
-  //     quizExists = true;
-  //   } catch (error) {
-  //     console.error("Error parsing quiz:", error);
-  //   }
-  // };
-  // let [quizExists, setQuizExists] = useState(false);
-  // let [quizJSON, setQuizJSON] = useState({ questions: ["Nothing"] });
-
-  // const getQuiz = async () => {
-  //   setQuizExists(true);
-  //   setQuizJSON(await generateQuiz(id));
-  // };
-
+const Questions = (session: any, quizJSON: any) => {
   return (
     <div className="max-w-3xl mx-auto px-4 py-12 md:px-6 md:py-16 lg:py-20">
       <div className="space-y-6">
@@ -93,4 +58,4 @@ const page = async ({ params: { id } }: any) => {
   );
 };
 
-export default page;
+export default Questions;

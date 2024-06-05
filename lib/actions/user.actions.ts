@@ -3,6 +3,7 @@
 import { createClient } from "@/utils/supabase/server";
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
+import { writeQuiz } from "../ai/gemini";
 
 export async function newSession({
   name,
@@ -83,3 +84,18 @@ export async function updateSession(
   }
   revalidatePath("/dashboard");
 }
+
+// generate a quiz from document text
+
+export const generateQuiz = async (id: string) => {
+  "use server";
+  const session = await getSession(id);
+  try {
+    const quiz = await writeQuiz(session.document_text, 5);
+    const quizJSON = JSON.parse(quiz);
+    return quizJSON;
+    // quizExists = true;
+  } catch (error) {
+    console.error("Error parsing quiz:", error);
+  }
+};
