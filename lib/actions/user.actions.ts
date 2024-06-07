@@ -87,15 +87,25 @@ export async function updateSession(
 
 // generate a quiz from document text
 
-export const generateQuiz = async (id: string) => {
-  "use server";
-  const session = await getSession(id);
-  try {
-    const quiz = await writeQuiz(session.document_text, 5);
-    const quizJSON = JSON.parse(quiz);
-    return quizJSON;
-    // quizExists = true;
-  } catch (error) {
-    console.error("Error parsing quiz:", error);
-  }
+// export const generateQuiz = async (id: string) => {
+//   "use server";
+//   const session = await getSession(id);
+//   try {
+//     const quiz = await writeQuiz(session.document_text, 5);
+//     const quizJSON = JSON.parse(quiz);
+//     return quizJSON;
+//     // quizExists = true;
+//   } catch (error) {
+//     console.error("Error parsing quiz:", error);
+//   }
+// };
+export const generateQuiz = async (
+  setQuiz: React.Dispatch<React.SetStateAction<any>>,
+  setQuizJSON: React.Dispatch<React.SetStateAction<any>>,
+  session: any,
+  quiz: any
+) => {
+  // "use server";
+  setQuiz(await writeQuiz(session.document_text, 5));
+  setQuizJSON(JSON.parse(quiz));
 };

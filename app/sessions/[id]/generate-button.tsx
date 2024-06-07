@@ -3,13 +3,15 @@
 import { Button } from "@/components/ui/button";
 import React from "react";
 
-const GenerateQuizButton = ({
+interface GenerateQuizButtonProps {
+  generateQuiz: () => void;
+}
+
+const GenerateQuizButton: React.FC<GenerateQuizButtonProps> = ({
   generateQuiz,
-}: {
-  generateQuiz: () => Promise<void>;
 }) => {
   return (
-    <Button size="lg" onClick={generateQuiz}>
+    <Button onClick={generateQuiz} size="lg">
       Generate Quiz
     </Button>
   );
