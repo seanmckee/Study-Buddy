@@ -99,13 +99,13 @@ export async function updateSession(
 //     console.error("Error parsing quiz:", error);
 //   }
 // };
-export const generateQuiz = async (
-  setQuiz: React.Dispatch<React.SetStateAction<any>>,
-  setQuizJSON: React.Dispatch<React.SetStateAction<any>>,
-  session: any,
-  quiz: any
-) => {
-  // "use server";
-  setQuiz(await writeQuiz(session.document_text, 5));
-  setQuizJSON(JSON.parse(quiz));
-};
+// export const generateQuiz = async (
+//   setQuiz: React.Dispatch<React.SetStateAction<any>>,
+//   setQuizJSON: React.Dispatch<React.SetStateAction<any>>,
+//   session: any,
+//   quiz: any
+// ) => {
+//   // "use server";
+//   setQuiz(await writeQuiz(session.document_text, 5));
+//   setQuizJSON(JSON.parse(quiz));
+// };

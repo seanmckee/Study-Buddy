@@ -22,21 +22,30 @@ const page = async ({ params: { id } }: any) => {
   const generateQuiz = async () => {
     "use server";
     try {
-      console.log("document text:" + session.document_text);
-      const quiz = await writeQuiz(session.document_text, 5);
-      console.log("quiz", quiz);
-      quizJSON = JSON.parse(quiz);
-      console.log("quizJSON", quizJSON);
-      console.log("generating quiz", quizJSON);
+      // console.log("document text:" + session.document_text);
+      const quiz = JSON.parse(await writeQuiz(session.document_text, 5));
+      // console.log("quiz", quiz);
+      // quizJSON = quiz;
+      // console.log("quizJSON", quizJSON);
+      // console.log("quizJSON initial value", quizJSON);
+      // try {
+      //   quizJSON = JSON.parse(quiz);
+      // } catch (error) {
+      //   console.error("Error parsing quiz:", error);
+      // }
+      // quizJSON = JSON.parse(quiz);
+      // console.log("quizJSON", quizJSON);
+      // console.log("generating quiz", quizJSON);
+      return quiz;
     } catch (error) {
-      console.error("Error parsing quiz:", error);
+      console.error("Error creating quiz:", error);
     }
   };
 
-  const exampleQuiz = await writeQuiz(session.document_text, 5);
-  console.log("exampleQuiz", exampleQuiz);
-  const exampleQuizJSON = JSON.parse(exampleQuiz);
-  console.log("exampleQuizJSON", exampleQuizJSON);
+  // const exampleQuiz = await writeQuiz(session.document_text, 5);
+  // console.log("exampleQuiz", exampleQuiz);
+  // const exampleQuizJSON = JSON.parse(exampleQuiz);
+  // console.log("exampleQuizJSON", exampleQuizJSON);
 
   // const exampleQuiz = await generateQuiz();
   // console.log("exampleQuiz", exampleQuiz);
@@ -60,7 +69,7 @@ const page = async ({ params: { id } }: any) => {
         <p>{session.description}</p>
       </div>
       <GenerateQuizButton generateQuiz={generateQuiz} />
-      <Quiz quizJSON={quizJSON} />
+      {/* <Quiz quizJSON={quizJSON} /> */}
     </div>
   );
 };
