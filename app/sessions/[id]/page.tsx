@@ -22,51 +22,24 @@ const page = async ({ params: { id } }: any) => {
   const generateQuiz = async () => {
     "use server";
     try {
-      // console.log("document text:" + session.document_text);
       const quiz = JSON.parse(await writeQuiz(session.document_text, 5));
-      // console.log("quiz", quiz);
-      // quizJSON = quiz;
-      // console.log("quizJSON", quizJSON);
-      // console.log("quizJSON initial value", quizJSON);
-      // try {
-      //   quizJSON = JSON.parse(quiz);
-      // } catch (error) {
-      //   console.error("Error parsing quiz:", error);
-      // }
-      // quizJSON = JSON.parse(quiz);
-      // console.log("quizJSON", quizJSON);
-      // console.log("generating quiz", quizJSON);
       return quiz;
     } catch (error) {
       console.error("Error creating quiz:", error);
     }
   };
 
-  // const exampleQuiz = await writeQuiz(session.document_text, 5);
-  // console.log("exampleQuiz", exampleQuiz);
-  // const exampleQuizJSON = JSON.parse(exampleQuiz);
-  // console.log("exampleQuizJSON", exampleQuizJSON);
-
-  // const exampleQuiz = await generateQuiz();
-  // console.log("exampleQuiz", exampleQuiz);
-  // useEffect(() => {
-  //   const fetchQuiz = async () => {
-  //     const quiz = await generateQuiz();
-  //     setQuiz(quiz);
-  //   };
-  //   fetchQuiz();
-  // })
-  // const session = await getSession(id);
-  // const quiz = await writeQuiz(session.document_text, 5);
-  // const quizJSON = JSON.parse(quiz);
-
-  // generate quiz
-
   return (
-    <div>
-      <div>
-        <h1>{session.name}</h1>
-        <p>{session.description}</p>
+    <div className="max-w-3xl mx-auto px-4 py-12 md:px-6 md:py-16 lg:py-20">
+      <div className="space-y-6">
+        <div className="text-center">
+          <h1 className="text-3xl font-bold tracking-tight sm:text-4xl">
+            {session.name}
+          </h1>
+          <p className="mt-3 text-lg text-gray-500 dark:text-gray-400">
+            {session.description}
+          </p>
+        </div>
       </div>
       <GenerateQuizButton generateQuiz={generateQuiz} />
       {/* <Quiz quizJSON={quizJSON} /> */}
