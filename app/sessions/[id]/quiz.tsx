@@ -1,10 +1,11 @@
 "use client";
 
 import { Button } from "@/components/ui/button";
-import React from "react";
+import React, { useState } from "react";
 
 const Quiz = (quizJSON: any) => {
   //   console.log(quizJSON.quizJSON.questions);
+
   return (
     <div>
       {quizJSON.quizJSON.questions.map((question: any, i: number) => (

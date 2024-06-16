@@ -85,27 +85,18 @@ export async function updateSession(
   revalidatePath("/dashboard");
 }
 
-// generate a quiz from document text
-
-// export const generateQuiz = async (id: string) => {
-//   "use server";
-//   const session = await getSession(id);
-//   try {
-//     const quiz = await writeQuiz(session.document_text, 5);
-//     const quizJSON = JSON.parse(quiz);
-//     return quizJSON;
-//     // quizExists = true;
-//   } catch (error) {
-//     console.error("Error parsing quiz:", error);
-//   }
-// };
-// export const generateQuiz = async (
-//   setQuiz: React.Dispatch<React.SetStateAction<any>>,
-//   setQuizJSON: React.Dispatch<React.SetStateAction<any>>,
-//   session: any,
-//   quiz: any
-// ) => {
-//   // "use server";
-//   setQuiz(await writeQuiz(session.document_text, 5));
-//   setQuizJSON(JSON.parse(quiz));
-// };
+// update mastery level for a session
+// adds to correct answers and total answers
+export const updateMasteryLevel = async (correct: number, answered: number) => {
+  const supabase = createClient();
+  const { data, error } = await supabase
+    .from("review_sessions")
+    .update({
+      correct_answers: correct,
+      total_answers: answered,
+    })
+    .eq("id", "session_id");
+  if (error) {
+    console.error("Error updating mastery level:", error.message);
+  }
+};

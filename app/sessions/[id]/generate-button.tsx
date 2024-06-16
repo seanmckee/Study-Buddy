@@ -1,10 +1,13 @@
 "use client";
 
 import { Button } from "@/components/ui/button";
+import { updateMasteryLevel } from "@/lib/actions/user.actions";
+import { fdatasyncSync } from "fs";
 import React, { useState } from "react";
+import toast, { Toaster } from "react-hot-toast";
 
 interface GenerateQuizButtonProps {
-  generateQuiz: () => void;
+  generateQuiz: () => Promise<any>;
 }
 
 const GenerateQuizButton: React.FC<GenerateQuizButtonProps> = ({
@@ -21,7 +24,8 @@ const GenerateQuizButton: React.FC<GenerateQuizButtonProps> = ({
     all_correct_answers: [],
   });
 
-  const [selectedAnswers, setSelectedAnswers] = useState<number[]>([]);
+  const [selectedAnswers, setSelectedAnswers] = useState<(number | null)[]>([]);
+  const [submitted, setSubmitted] = useState(false);
 
   const handleAnswerChange = (questionIndex: number, answerIndex: number) => {
     const updatedSelectedAnswers = [...selectedAnswers];
@@ -31,16 +35,33 @@ const GenerateQuizButton: React.FC<GenerateQuizButtonProps> = ({
   };
 
   const getQuiz = async () => {
-    const quiz = await generateQuiz();
-    setQuiz(quiz);
-    setSelectedAnswers(new Array(quiz.questions?.length).fill(null));
-  };
+    setSubmitted(false);
+    const newQuiz = await generateQuiz();
+    if (newQuiz) {
+      setQuiz(newQuiz);
 
-  const onSubmit = () => {
-    console.log("submit");
+      setSelectedAnswers(new Array(newQuiz.questions?.length).fill(null));
+    }
+  };
+  {
+  }
+  const onSubmit = async () => {
+    if (selectedAnswers.includes(null)) {
+      toast.error("Please answer all questions before submitting");
+    }
+    const correctAnswers = quiz.questions.map((question: any, i: number) => {
+      return question.correct_answer_index === selectedAnswers[i] ? 1 : 0;
+    });
+    const score = correctAnswers.reduce((acc: any, curr: any) => acc + curr, 0);
+    console.log({ correctAnswers, score });
+    toast.success(`You scored ${score}/${quiz.questions.length}`);
+    setSubmitted(true);
+    updateMasteryLevel(score, quiz.questions.length);
+    // return { correctAnswers, score };
   };
   return (
     <div>
+      <Toaster />
       <Button
         className="flex justify-center"
         onClick={(e) => getQuiz()}
@@ -61,8 +82,20 @@ const GenerateQuizButton: React.FC<GenerateQuizButtonProps> = ({
                     id={`question-${i}-answer-${j}`}
                     checked={selectedAnswers[i] === j}
                     onChange={() => handleAnswerChange(i, j)}
+                    disabled={submitted}
                   />
-                  <label htmlFor={`question-${i}-answer-${j}`}>{answer}</label>
+                  <label
+                    htmlFor={`question-${i}-answer-${j}`}
+                    className={
+                      submitted && question.correct_answer_index == j
+                        ? "bg-green-100"
+                        : submitted && j == selectedAnswers[i]
+                        ? "bg-red-100"
+                        : ""
+                    }
+                  >
+                    {answer}
+                  </label>
                 </div>
               ))}
             </div>
