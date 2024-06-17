@@ -127,7 +127,7 @@ export const updateMasteryLevel = async (
       throw updateError;
     }
 
-    console.log("Mastery level updated successfully.");
+    // console.log("Mastery level updated successfully.");
   } catch (error: any) {
     console.error("Error updating mastery level:", error.message);
     throw error;

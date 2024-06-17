@@ -62,7 +62,7 @@ const CreateSession = () => {
   }
 
   const onSubmit = async () => {
-    console.log("name: " + name + " description: " + description);
+    // console.log("name: " + name + " description: " + description);
     newSession({ name, description, text, currentUserId });
   };
 
