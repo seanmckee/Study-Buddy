@@ -33,15 +33,21 @@ const page = async ({ params: { id } }: any) => {
     <div className="max-w-3xl mx-auto px-4 py-12 md:px-6 md:py-16 lg:py-20">
       <div className="space-y-6">
         <div className="text-center">
-          <h1 className="text-3xl font-bold tracking-tight sm:text-4xl">
+          <h1 className="text-4xl font-bold tracking-tight sm:text-4xl">
             {session.name}
           </h1>
+          <p className="text-sm text-gray-500">
+            {Math.round(
+              (session.correct_answers / session.total_answers) * 100 * 10
+            ) / 10}
+            % Mastery
+          </p>
           <p className="mt-3 text-lg text-gray-500 dark:text-gray-400">
             {session.description}
           </p>
         </div>
       </div>
-      <GenerateQuizButton generateQuiz={generateQuiz} />
+      <GenerateQuizButton sessionId={session.id} generateQuiz={generateQuiz} />
       {/* <Quiz quizJSON={quizJSON} /> */}
     </div>
   );

@@ -3,15 +3,19 @@
 import { Button } from "@/components/ui/button";
 import { updateMasteryLevel } from "@/lib/actions/user.actions";
 import { fdatasyncSync } from "fs";
+import { revalidatePath } from "next/cache";
+import { useRouter } from "next/navigation";
 import React, { useState } from "react";
 import toast, { Toaster } from "react-hot-toast";
 
 interface GenerateQuizButtonProps {
   generateQuiz: () => Promise<any>;
+  sessionId: string;
 }
 
 const GenerateQuizButton: React.FC<GenerateQuizButtonProps> = ({
   generateQuiz,
+  sessionId,
 }) => {
   const [quiz, setQuiz] = useState<any>({
     questions: [
@@ -24,6 +28,8 @@ const GenerateQuizButton: React.FC<GenerateQuizButtonProps> = ({
     all_correct_answers: [],
   });
 
+  const router = useRouter();
+
   const [selectedAnswers, setSelectedAnswers] = useState<(number | null)[]>([]);
   const [submitted, setSubmitted] = useState(false);
 
@@ -35,11 +41,10 @@ const GenerateQuizButton: React.FC<GenerateQuizButtonProps> = ({
   };
 
   const getQuiz = async () => {
-    setSubmitted(false);
     const newQuiz = await generateQuiz();
     if (newQuiz) {
       setQuiz(newQuiz);
-
+      setSubmitted(false);
       setSelectedAnswers(new Array(newQuiz.questions?.length).fill(null));
     }
   };
@@ -54,9 +59,17 @@ const GenerateQuizButton: React.FC<GenerateQuizButtonProps> = ({
     });
     const score = correctAnswers.reduce((acc: any, curr: any) => acc + curr, 0);
     console.log({ correctAnswers, score });
+    try {
+      await updateMasteryLevel(sessionId, score, quiz.questions.length);
+      console.log("updated mastery");
+    } catch (error: any) {
+      console.error("Error updating mastery level:", error.message);
+    }
+    // updateMasteryLevel(score, quiz.questions.length);
+
     toast.success(`You scored ${score}/${quiz.questions.length}`);
     setSubmitted(true);
-    updateMasteryLevel(score, quiz.questions.length);
+    router.refresh();
     // return { correctAnswers, score };
   };
   return (

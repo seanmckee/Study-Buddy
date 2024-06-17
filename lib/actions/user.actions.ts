@@ -87,16 +87,61 @@ export async function updateSession(
 
 // update mastery level for a session
 // adds to correct answers and total answers
-export const updateMasteryLevel = async (correct: number, answered: number) => {
+
+export const updateMasteryLevel = async (
+  session_id: string,
+  correct: number,
+  answered: number
+) => {
+  const supabase = createClient();
+  try {
+    // Fetch current values from Supabase
+    const { data: currentData, error: fetchError } = await supabase
+      .from("review_sessions")
+      .select("correct_answers, total_answers")
+      .eq("id", session_id)
+      .single();
+
+    if (fetchError) {
+      throw fetchError;
+    }
+
+    // Calculate new values
+    const currentCorrectAnswers = currentData?.correct_answers || 0;
+    const currentTotalAnswers = currentData?.total_answers || 0;
+
+    const newCorrectAnswers = currentCorrectAnswers + correct;
+    const newTotalAnswers = currentTotalAnswers + answered;
+
+    // Update Supabase with the new values
+    const { data: updateData, error: updateError } = await supabase
+      .from("review_sessions")
+      .update({
+        correct_answers: newCorrectAnswers,
+        total_answers: newTotalAnswers,
+      })
+      .eq("id", session_id);
+
+    if (updateError) {
+      throw updateError;
+    }
+
+    console.log("Mastery level updated successfully.");
+  } catch (error: any) {
+    console.error("Error updating mastery level:", error.message);
+    throw error;
+  }
+};
+
+// get mastery level in percentage
+export const getMasteryLevel = async (session_id: string) => {
   const supabase = createClient();
   const { data, error } = await supabase
     .from("review_sessions")
-    .update({
-      correct_answers: correct,
-      total_answers: answered,
-    })
-    .eq("id", "session_id");
+    .select("correct_answers, total_answers")
+    .eq("id", session_id);
   if (error) {
-    console.error("Error updating mastery level:", error.message);
+    console.error("Error fetching mastery level:", error.message);
   }
+  return data;
 };
