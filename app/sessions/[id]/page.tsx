@@ -3,9 +3,22 @@ import { getSession } from "@/lib/actions/user.actions";
 import { writeQuiz } from "@/lib/ai/gemini";
 import React, { Suspense, use, useEffect, useState } from "react";
 import Quiz from "./quiz";
+import { redirect } from "next/navigation";
+import { createClient } from "@/utils/supabase/server";
 
 const page = async ({ params: { id } }: any) => {
   const session = await getSession(id);
+
+  const supabase = createClient();
+  // const [file, setFile] = useState(null);
+
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+
+  if (!user) {
+    return redirect("/login");
+  }
 
   let quizJSON = {
     questions: [

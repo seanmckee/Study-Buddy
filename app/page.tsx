@@ -22,6 +22,7 @@ import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { Input } from "@/components/ui/input";
 import Image from "next/image";
+import { redirect } from "next/navigation";
 
 export default async function Index() {
   const canInitSupabaseClient = () => {
@@ -34,40 +35,18 @@ export default async function Index() {
       return false;
     }
   };
+  const supabase = createClient();
 
   const isSupabaseConnected = canInitSupabaseClient();
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+
+  if (user) {
+    return redirect("/dashboard");
+  }
 
   return (
-    // <div className="flex-1 w-full flex flex-col gap-20 items-center">
-    //   <nav className="w-full flex justify-center border-b border-b-foreground/10 h-16">
-    //     <div className="w-full max-w-4xl flex justify-between items-center p-3 text-sm">
-    //       <DeployButton />
-    //       {isSupabaseConnected && <AuthButton />}
-    //     </div>
-    //   </nav>
-
-    //   <div className="animate-in flex-1 flex flex-col gap-20 opacity-0 max-w-4xl px-3">
-    //     <Header />
-    //     <main className="flex-1 flex flex-col gap-6">
-    //       <h2 className="font-bold text-4xl mb-4">Next steps</h2>
-    //       {isSupabaseConnected ? <SignUpUserSteps /> : <ConnectSupabaseSteps />}
-    //     </main>
-    //   </div>
-
-    //   <footer className="w-full border-t border-t-foreground/10 p-8 flex justify-center text-center text-xs">
-    //     <p>
-    //       Powered by{" "}
-    //       <a
-    //         href="https://supabase.com/?utm_source=create-next-app&utm_medium=template&utm_term=nextjs"
-    //         target="_blank"
-    //         className="font-bold hover:underline"
-    //         rel="noreferrer"
-    //       >
-    //         Supabase
-    //       </a>
-    //     </p>
-    //   </footer>
-    // </div>
     <div className="flex flex-col min-h-[100dvh]">
       <header className="px-4 lg:px-6 h-14 flex items-center">
         <Link className="flex items-center justify-center" href="#">
@@ -94,13 +73,6 @@ export default async function Index() {
             Pricing
           </Link>
 
-          {/* <Link
-            className="inline-flex h-8 items-center justifty-center rounded-md bg-gray-900 px-4 text-sm font-medium text-gray-50 shadow transition-colors hover:bg-gray-900/90 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-gray-950 disabled:pointer-events-none disabled:opacity-50 dark:bg-gray-50 dark:text-gray-900 dark:hover:bg-gray-50/90 dark:focus-visible:ring-gray-300"
-            // inline-flex h-8 items-center justify-center rounded-md bg-gray-900 px-4 text-sm font-medium text-gray-50 shadow transition-colors hover:bg-gray-900/90 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-gray-950 disabled:pointer-events-none disabled:opacity-50 dark:bg-gray-50 dark:text-gray-900 dark:hover:bg-gray-50/90 dark:focus-visible:ring-gray-300
-            href="#"
-          >
-            Login
-          </Link> */}
           <div className="text-sm font-medium hover:underline underline-offset-4 ">
             {isSupabaseConnected && <AuthButton />}
           </div>
@@ -130,7 +102,7 @@ export default async function Index() {
                   </Link>
                   <Link
                     className="inline-flex h-10 items-center justify-center rounded-md border border-gray-200 bg-white px-8 text-sm font-medium shadow-sm transition-colors hover:bg-gray-100 hover:text-gray-900 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-gray-950 disabled:pointer-events-none disabled:opacity-50 dark:border-gray-800 dark:border-gray-800 dark:bg-gray-950 dark:hover:bg-gray-800 dark:hover:text-gray-50 dark:focus-visible:ring-gray-300"
-                    href="#"
+                    href="#features"
                   >
                     Learn More
                   </Link>

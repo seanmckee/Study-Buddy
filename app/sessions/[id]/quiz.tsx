@@ -72,13 +72,13 @@ const Quiz: React.FC<QuizProps> = ({ generateQuiz, sessionId }) => {
       <Toaster />
       <div className="flex-shrink-0 mb-5">
         <Button onClick={(e) => getQuiz()} size="lg" disabled={loading}>
-          {loading ? "Loading..." : "Generate Quiz"}
+          {loading ? "Generating..." : "Generate Quiz"}
         </Button>
       </div>
 
       {loading ? (
         <div className="text-center mt-8">
-          <p className="text-gray-600">Loading quiz...</p>
+          <p className="text-gray-600">Generating Quiz...</p>
           {/* You can add a spinner or any loading animation here */}
         </div>
       ) : (
