@@ -34,7 +34,6 @@ const Quiz: React.FC<QuizProps> = ({ generateQuiz, sessionId }) => {
     const updatedSelectedAnswers = [...selectedAnswers];
     updatedSelectedAnswers[questionIndex] = answerIndex;
     setSelectedAnswers(updatedSelectedAnswers);
-    console.log(selectedAnswers);
   };
 
   const getQuiz = async () => {
@@ -50,6 +49,7 @@ const Quiz: React.FC<QuizProps> = ({ generateQuiz, sessionId }) => {
   const onSubmit = async () => {
     if (selectedAnswers.includes(null)) {
       toast.error("Please answer all questions before submitting");
+      return;
     }
     const correctAnswers = quiz.questions.map((question: any, i: number) => {
       return question.correct_answer_index === selectedAnswers[i] ? 1 : 0;
