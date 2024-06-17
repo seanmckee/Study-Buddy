@@ -133,11 +133,11 @@ const Quiz: React.FC<QuizProps> = ({ generateQuiz, sessionId }) => {
             </div>
           </div>
         ))}
-        <div className="flex flex-col flex-shrink-0 items-center">
-          <Button className="mt-5" onClick={onSubmit} size={"lg"}>
-            Submit
-          </Button>
-        </div>
+      </div>
+      <div className="flex flex-col flex-shrink-0 items-center">
+        <Button className="mt-5" onClick={onSubmit} size={"lg"}>
+          Submit
+        </Button>
       </div>
     </div>
   );

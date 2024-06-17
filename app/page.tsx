@@ -76,19 +76,19 @@ export default async function Index() {
         </Link>
         <nav className="ml-auto flex gap-4 sm:gap-6">
           <Link
-            className="text-sm font-medium hover:underline underline-offset-4"
+            className="hidden sm:flex text-sm font-medium hover:underline underline-offset-4"
             href="#features"
           >
             Features
           </Link>
           <Link
-            className="text-sm font-medium hover:underline underline-offset-4"
+            className="hidden sm:flex text-sm font-medium hover:underline underline-offset-4"
             href="#testimonials"
           >
             Testimonials
           </Link>
           <Link
-            className="text-sm font-medium hover:underline underline-offset-4"
+            className="hidden sm:flex text-sm font-medium hover:underline underline-offset-4"
             href="#pricing"
           >
             Pricing
