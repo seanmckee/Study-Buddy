@@ -1,6 +1,9 @@
 import AuthButton from "@/components/AuthButton";
 import { Book } from "lucide-react";
 import { createClient } from "@/utils/supabase/server";
+import { Suspense } from "react";
+import Loading from "./loading";
+import Link from "next/link";
 
 export default function DashboardLayout({
   children, // will be a page or nested layout
@@ -21,9 +24,11 @@ export default function DashboardLayout({
 
   return (
     <section>
-      <header className="px-4 lg:px-6 h-14 flex items-center">
+      <header className="px-4 lg:px-6 h-14 flex items-center justify-between w-screen">
         <div className="flex items-center justify-center">
-          <Book className="h-6 w-6" />
+          <Link href="/dashboard">
+            <Book className="h-6 w-6" />
+          </Link>
           <span className="sr-only">Study Buddy</span>
         </div>
         <nav className="ml-auto flex gap-4 sm:gap-6">
@@ -33,7 +38,8 @@ export default function DashboardLayout({
         </nav>
       </header>
 
-      {children}
+      <Suspense fallback={<Loading />}>{children}</Suspense>
+      {/* {children} */}
     </section>
   );
 }

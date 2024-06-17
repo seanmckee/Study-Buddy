@@ -62,6 +62,7 @@ export async function deleteSession(sessionId: string) {
     .from("review_sessions")
     .delete()
     .eq("id", sessionId);
+
   if (error) {
     console.error("Error deleting session:", error.message);
   }

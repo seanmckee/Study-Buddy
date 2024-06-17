@@ -71,7 +71,7 @@ const CreateSession = () => {
       <Dialog>
         <DialogTrigger asChild>
           <Button
-            className="bg-gray-900 text-gray-50 hover:bg-gray-900/90 focus-visible:ring-gray-950 dark:bg-gray-50 dark:text-gray-900 dark:hover:bg-gray-50/90 dark:focus-visible:ring-gray-300"
+            className="bg-gray-900 text-gray-50 hover:bg-gray-600 hover:-text-gray-50"
             size="sm"
             variant="outline"
           >

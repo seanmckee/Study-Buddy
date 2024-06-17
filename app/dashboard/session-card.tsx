@@ -37,11 +37,10 @@ const SessionCard = ({ session }: any) => {
 
   const viewSession = () => {
     router.push(`/sessions/${session.id}`);
-    console.log("button pressed");
   };
 
   return (
-    <Card>
+    <Card className="p-3">
       <CardContent>
         <h2 className="text-xl font-bold mb-2">{session.name}</h2>
         <p className="text-gray-500 mb-4">{session.description}</p>
@@ -51,7 +50,7 @@ const SessionCard = ({ session }: any) => {
       </CardContent>
       <CardFooter>
         <Button
-          className="bg-gray-900 text-gray-50 hover:bg-gray-900/90 focus-visible:ring-gray-950 dark:bg-gray-50 dark:text-gray-900 dark:hover:bg-gray-50/90 dark:focus-visible:ring-gray-300"
+          className="bg-gray-900 text-gray-50 hover:bg-gray-600 hover:-text-gray-50 "
           size="sm"
           variant="outline"
           onClick={viewSession}
@@ -59,19 +58,10 @@ const SessionCard = ({ session }: any) => {
           View
         </Button>
 
-        {/* <Button
-          className="bg-gray-900 text-gray-50 hover:bg-gray-900/90 focus-visible:ring-gray-950 dark:bg-gray-50 dark:text-gray-900 dark:hover:bg-gray-50/90 dark:focus-visible:ring-gray-300"
-          size="sm"
-          variant="outline"
-          onClick={viewSession}
-        >
-          print
-        </Button> */}
-
         <Dialog>
           <DialogTrigger asChild>
             <Button
-              className="bg-gray-900 text-gray-50 hover:bg-gray-900/90 focus-visible:ring-gray-950 dark:bg-gray-50 dark:text-gray-900 dark:hover:bg-gray-50/90 dark:focus-visible:ring-gray-300"
+              className="bg-gray-900 text-gray-50 hover:bg-gray-600 hover:-text-gray-50"
               size="sm"
               variant="outline"
             >
@@ -127,7 +117,7 @@ const SessionCard = ({ session }: any) => {
         <AlertDialog>
           <AlertDialogTrigger asChild>
             <Button
-              className="bg-gray-900 text-gray-50 hover:bg-gray-900/90 focus-visible:ring-gray-950 dark:bg-gray-50 dark:text-gray-900 dark:hover:bg-gray-50/90 dark:focus-visible:ring-gray-300"
+              className="bg-gray-900 text-gray-50 hover:bg-gray-600 hover:-text-gray-50"
               size="sm"
               variant="outline"
             >

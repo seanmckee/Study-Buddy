@@ -77,27 +77,21 @@ export default async function Index() {
         <nav className="ml-auto flex gap-4 sm:gap-6">
           <Link
             className="text-sm font-medium hover:underline underline-offset-4"
-            href="#"
+            href="#features"
           >
             Features
           </Link>
           <Link
             className="text-sm font-medium hover:underline underline-offset-4"
-            href="#"
+            href="#testimonials"
           >
             Testimonials
           </Link>
           <Link
             className="text-sm font-medium hover:underline underline-offset-4"
-            href="#"
+            href="#pricing"
           >
             Pricing
-          </Link>
-          <Link
-            className="text-sm font-medium hover:underline underline-offset-4 "
-            href="#"
-          >
-            Contact
           </Link>
 
           {/* <Link
@@ -130,7 +124,7 @@ export default async function Index() {
                 <div className="flex flex-col gap-2 min-[400px]:flex-row">
                   <Link
                     className="inline-flex h-10 items-center justify-center rounded-md bg-gray-900 px-8 text-sm font-medium text-gray-50 shadow transition-colors hover:bg-gray-900/90 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-gray-950 disabled:pointer-events-none disabled:opacity-50 dark:bg-gray-50 dark:text-gray-900 dark:hover:bg-gray-50/90 dark:focus-visible:ring-gray-300"
-                    href="#"
+                    href="login"
                   >
                     Get Started
                   </Link>
@@ -148,6 +142,7 @@ export default async function Index() {
                 height="550"
                 src={studyImage}
                 width="550"
+                priority
               />
             </div>
           </div>
@@ -201,10 +196,10 @@ export default async function Index() {
                   </li>
                   <li>
                     <div className="grid gap-1">
-                      <h3 className="text-xl font-bold">Progress Tracking</h3>
+                      <h3 className="text-xl font-bold">Mastery Tracking</h3>
                       <p className="text-gray-500 dark:text-gray-400">
-                        Monitor your progress and identify areas for improvement
-                        with our comprehensive analytics.
+                        Track your progress and improvement over time with
+                        mastery tracking.
                       </p>
                     </div>
                   </li>
@@ -226,7 +221,7 @@ export default async function Index() {
             </div>
             <div className="flex flex-col gap-6">
               <Card>
-                <CardContent>
+                <CardContent className="p-5">
                   <blockquote className="text-lg font-semibold leading-snug">
                     “Study Buddy has been a game-changer for my studies. The
                     quiz generator is incredibly accurate and helps me identify
@@ -234,11 +229,10 @@ export default async function Index() {
                   </blockquote>
                   <div className="mt-4 flex items-center space-x-4">
                     <Avatar>
-                      <AvatarImage src="/avatars/01.png" />
-                      <AvatarFallback>SD</AvatarFallback>
+                      <AvatarFallback>AN</AvatarFallback>
                     </Avatar>
                     <div>
-                      <p className="text-sm font-medium">Sofia Davis</p>
+                      <p className="text-sm font-medium">Alex Nguyen</p>
                       <p className="text-sm text-gray-500 dark:text-gray-400">
                         University Student
                       </p>
@@ -247,21 +241,20 @@ export default async function Index() {
                 </CardContent>
               </Card>
               <Card>
-                <CardContent>
+                <CardContent className="p-5">
                   <blockquote className="text-lg font-semibold leading-snug">
                     “I was struggling with my coursework, but Study Buddy helped
-                    me stay organized and on track. The progress tracking
-                    feature is invaluable.”
+                    me stay organized and on track. The quiz generation is
+                    invaluable.”
                   </blockquote>
                   <div className="mt-4 flex items-center space-x-4">
                     <Avatar>
-                      <AvatarImage src="/avatars/02.png" />
-                      <AvatarFallback>JD</AvatarFallback>
+                      <AvatarFallback>RC</AvatarFallback>
                     </Avatar>
                     <div>
-                      <p className="text-sm font-medium">James Doe</p>
+                      <p className="text-sm font-medium">Ryan Cheng</p>
                       <p className="text-sm text-gray-500 dark:text-gray-400">
-                        Graduate Student
+                        University Student
                       </p>
                     </div>
                   </div>
@@ -318,38 +311,6 @@ export default async function Index() {
                 </CardContent>
               </Card>
             </div>
-          </div>
-        </section>
-        <section
-          className="w-full py-12 md:py-24 lg:py-32 border-t"
-          id="contact"
-        >
-          <div className="container grid items-center justify-center gap-4 px-4 md:px-6">
-            <div className="space-y-3">
-              <h2 className="text-3xl font-bold tracking-tighter md:text-4xl/tight">
-                Get in Touch
-              </h2>
-              <p className="mx-auto max-w-[600px] text-gray-500 md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed dark:text-gray-400">
-                Have a question or feedback? We'd love to hear from you.
-              </p>
-            </div>
-            <form className="mx-auto w-full max-w-md space-y-4">
-              <div className="grid gap-2">
-                <Label htmlFor="name">Name</Label>
-                <Input id="name" placeholder="Your name" />
-              </div>
-              <div className="grid gap-2">
-                <Label htmlFor="email">Email</Label>
-                <Input id="email" placeholder="Your email" type="email" />
-              </div>
-              <div className="grid gap-2">
-                <Label htmlFor="message">Message</Label>
-                <Textarea id="message" placeholder="Your message" />
-              </div>
-              <Button className="w-full" type="submit">
-                Submit
-              </Button>
-            </form>
           </div>
         </section>
       </main>
