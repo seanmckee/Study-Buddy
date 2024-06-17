@@ -33,6 +33,7 @@ const Quiz: React.FC<QuizProps> = ({ generateQuiz, sessionId }) => {
 
   const getQuiz = async () => {
     setLoading(true); // Start loading
+    setSubmitted(false);
     try {
       const newQuiz = await generateQuiz();
       if (newQuiz) {
