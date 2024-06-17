@@ -1,6 +1,7 @@
 "use client";
 import { Button } from "@/components/ui/button";
 import { updateMasteryLevel } from "@/lib/actions/user.actions";
+import { useRouter } from "next/navigation";
 import React, { useState } from "react";
 import toast, { Toaster } from "react-hot-toast";
 
@@ -10,6 +11,8 @@ interface QuizProps {
 }
 
 const Quiz: React.FC<QuizProps> = ({ generateQuiz, sessionId }) => {
+  let router = useRouter();
+
   const [quiz, setQuiz] = useState<any>({
     questions: [
       {
@@ -38,6 +41,7 @@ const Quiz: React.FC<QuizProps> = ({ generateQuiz, sessionId }) => {
       const newQuiz = await generateQuiz();
       if (newQuiz) {
         setQuiz(newQuiz);
+        console.log(newQuiz);
         setSelectedAnswers(new Array(newQuiz.questions?.length).fill(null));
       }
     } catch (error) {
@@ -66,6 +70,7 @@ const Quiz: React.FC<QuizProps> = ({ generateQuiz, sessionId }) => {
       console.error("Error updating mastery level:", error.message);
       toast.error("Failed to update mastery level");
     }
+    router.refresh();
   };
 
   return (

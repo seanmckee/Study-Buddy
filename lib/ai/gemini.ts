@@ -46,7 +46,7 @@ export async function writeQuiz(document_text: string, quiz_length: number) {
     " questions. Make it multiple choice. Format it in JSON and include the correct answer index at the bottom" +
     `. Format the JSON as follows: ${JSON.stringify(
       quizData
-    )}}. Do not add any additional punctuation or formatting towards the beginning or end of the JSON`;
+    )}}. Do not add any additional punctuation or formatting towards the beginning or end of the JSON. The first thing in the response should be a '{' and the last thing should be a '}'. `;
 
   const result = await model.generateContent(prompt);
   const response = await result.response;
